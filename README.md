@@ -1,42 +1,3 @@
-## Table of Contents
-- [Scope of Variables](#scope-of-variables)
-- [Access Modifiers and Visibility](#access-modifiers-and-visibility)
-- [Bitwise Operations](#bitwise-operations)
-  - [Width vs. Possible Values](#width-vs-possible-values)
-  - [Numerical Primitives](#numerical-primitives)
-  - [Operators](#operators)
-  - [Useful Tricks](#useful-tricks)
-- [Exceptions](#exceptions)
-- [Polymorphism](#polymorphism)
-  - [Static Polymorphism](#static-polymorphism)
-  - [Dynamic Polymorphism](#dynamic-polymorphism)
-  - [Overriding Methods](#method-overriding)
-- [Static vs Dynamic Binding](#static-vs-dynamic-binding)
-- [Interfaces](#interfaces)
-  - [Tagging Interfaces](#tagging-interfaces)
-- [Nested Classes](#nested-classes)
-- [Generics](#java-generics)
-- [Serialization](#serialization)
-- [Multithreading](#multithreading)
-  - [Thread Synchronization](#thread-synchronization)
-  - [Inter-thread Communication](#inter-thread-communication)
-- [Java Collections Framework](#java-collections-framework)
-  - [Overview](#overview)
-  - [Maps](#maps)
-  - [ArrayList vs. Vector](#arraylist-vs-vector)
-- [Common Design Patterns](#common-design-patterns)
-  - [Singleton Class](#singleton-class)
-- [`Number` Wrapper Classes](#number-wrapper-classes)
-- [Cloning Arrays](#cloning-arrays)
-- [Other Useful Keywords](#other-useful-keywords)
-  - [`final`](#final-keyword)
-  - [`abstract`](#abstract-keyword)
-  - [`synchronized`](#synchronized-keyword)
-  - [`transient`](#transient-keyword)
-  - [`throws`](#throws-keyword)
-  - [`volatile`](#volatile-keyword)
-
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Scope of Variables
 
 | **Local**| **Instance** | **Class/Static**  |
@@ -46,7 +7,6 @@
 | No access modifiers | Access modifiers OK. Visible to all methods & constructors in class. | Access modifiers OK. Visible to all methods & constructors in class. |
 | No default values. | Have default values. | Have default values. |
 
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Access Modifiers and Visibility
 
 | N/A | Public| Protected | Default | Private |
@@ -62,62 +22,6 @@
 - Methods declared `protected` in superclass must be `public` or `protected` in subclasses
 - Private methods are not inherited
 
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
-## Bitwise Operations
-### Width vs. Possible Values
-The number of bits used (width) determines the numbers that can be encoded: 2^n total.
-- Unsigned: 0 through 2^n - 1
-- 2's Complement: -2^(n-1) through 2^(n-1) - 1
-
-### Numerical primitives
-- **byte:** 8 bits, e.g. from -128 to 127
-- **short:** 16 bits
-- **char:** *unsigned* 16 bits
-- **int:** 32 bits
-- **long:** 64 bits
-
-### Operators
-
-For the following examples, assume a = 60, b = 13, c= -2. Their binary 2's complement representations are below.  
-a = 0011 1100  
-b = 0000 1101  
-c = 1111 1110  
-
-| Operation | Function | Example |
-|:---:|:---:|---|
-| `&`   |AND                            | `a&b` = `0000 1100 (12)` |
-| `\|`  |OR                             | `a\|b` = `0011 1101 (61)` |
-| `^`   |XOR                            | `a^b` = `0011 0001 (49)` |
-| `~`   |Complement (bitwise inversion) | `~a` = `1100 0011 (-61 in 2's complement)` |
-| `<<`  |Left shift                     | `a << 2` = `1111 0000 (-16 in 2's complement)` |
-| `>>`  |Arithmetic shift right         | `c >> 2` = `1111 1111 (-1)` |
-| `>>>` |Logical shift right (zero-fill)| `c >>> 2` = `0111 1111 (127)` |
-
-### Useful Tricks
-- Note that in the following examples, x, 0, and 1 refer to a single bit, not a multi-bit integer
-  - **XOR**
-    - x ^ 0 = x
-    - x ^ 1 = ~x
-      - For a multi-bit integer n, n ^ -1 = ~n. This works because -1 in 2's complement is represented as 11111111..., so each bit gets XOR'd with 1
-    - x ^ x = 0
-  - **AND**
-    - x & 0 = 0
-    - x & 1 = x
-      - For a multi-bit integer n, n & -1 = n. This works because -1 in 2's complement is represented as 11111111..., so each bit gets AND'd with 1
-    - x & x = x
-  - **OR**
-    - x \| 0 = x
-    - x \| 1 = 1
-    - x \| x = x
-- Swapping two values without a temporary variable
-  ```
-  // E.g. a = 2 (0b0010), b = 5 (0b0101)
-  a = a ^ b    // a = 7 (0b0111)
-  b = a ^ b    // b = 2 (0b0010)
-  a = a ^ b    // a = 5 (0b0101)
-  ```
-
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Exceptions
 Three types:
 1. **Checked Exceptions:** Notified by the compiler at compile-time
@@ -144,7 +48,6 @@ try (FileReader fr = new FileReader(filepath)) {
 - If checked exception, must extend `Exception`
 - If unchecked exception, must extend `RuntimeException`
 
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Polymorphism
 - Any object that can pass an IS-A test is polymorphic
   - All objects are polymorphic to the `Object` class
@@ -237,11 +140,6 @@ Rules for *overriding* methods (**NOT** overloading!)
 - If a method cannot be inherited, it cannot be overriden
 - Constructors cannot be overriden
 
----------------------------------
-
-For more information, see [Static vs Dynamic Binding](#static-vs-dynamic-binding).
-
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Static vs Dynamic Binding
 Association of a method call to a method body is known as **binding**. There are two types of binding:
 1. **Static Binding** (aka Early Binding): Binding resolved at compile time
@@ -295,7 +193,6 @@ class Boy extends Human {
 
 Note that, as detailed in the [Polymorphism](#polymorphism) section, the binding of *overloaded* methods is static, while the binding of *overridden* methods is dynamic.
 
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Interfaces
 An interface may have abstract methods, default methods, static methods, constants, and nested types. Method bodies exist only for default and static methods.
 
@@ -327,7 +224,6 @@ These have two basic design purposes:
 1. Creates a common parent
 2. Adds a data type to a class. A class that implements a tagging interface becomes an interface type through polymorphism
 
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Nested Classes
 Types of nested classes:
 ```
@@ -346,7 +242,6 @@ classes     inner classes     inner classes
 This means a class cannot inherit multiple classes.  
 However, a class **can** implement multiple interfaces.
 
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Java Generics
 ```java
 public static <E> void printArray(E[] array) {
@@ -375,43 +270,6 @@ public class Box<T> {
  }
  ```
 
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
-## Serialization
-Serialization allows an object to be represented as a sequence of bytes that includes the object's data as well as info about the object's type and the types of data stored in the object.
-
-After a serialized object has been written to a file, it can be read from the file and deserialized to recreate the object in memory.
-
-For a class to be serialized, it must meet two conditions:
-1. It must implement the `java.io.Serializable` interface
-2. All of the fields must be serializable. If a field is not serializable, it must be marked with the `transient` keyword
-
-Example of serialization:
-```java
-try {
-    FileOutputStream fileOut = new FileOutputStream("/tmp/employee.ser");
-    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-    out.writeObject(e); // Assume e is an Employee object
-    out.close();
-    fileOut.close();
-}
-```
-The data for object `e` is now saved in `/tmp/employee.ser`.  
-Note: convention is to use `.ser` (?)
-
-Example of deserialization:
-```java
-Employee e = null;
-try {
-    FileInputStream fileIn = new FileInputStream("/tmp/employee.ser");
-    ObjectInputStream in = new ObjectInputStream(fileIn);
-    e = (Employee)in.readObject();
-    in.close();
-    fileIn.close();
-}
-```
-The return value of `readObject()` should be cast to the proper class.
-
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Multithreading
 Lifecycle of a thread:
 - **New:** a new thread begins in this state where it remains until the program starts the thread
@@ -451,57 +309,6 @@ All three methods can **only** be called from within a `synchronized` context.
 #### Thread Deadlock
 Situation where two or more threads are blocked forever, waiting for each other. Occurs when multiple threads need the same locks, but obtain them in a different order. Obviously, we want to **avoid this!**
 
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
-## Java Collections Framework
-### Overview
-![alt text](https://media.geeksforgeeks.org/wp-content/uploads/java-collection.jpg "Java Collections Framework")
-
-### Maps
-There are four commonly used map implementations in Java: HashMap, TreeMap, LinkedHashMap, and Hashtable.
-
-![alt text](https://www.programcreek.com/wp-content/uploads/2009/02/MapClassHierarchy-600x354.jpg "Map Overview")
-
-To summarize them:
-- **HashMap** makes no guarantees on the ordering of keys or values.
-- **TreeMap** will iterate according to the "natural ordering" of the keys according to their `compareTo()` method (or an externally supplied `Comparator`). Additionally, it implements the `SortedMap` interface, which contains methods that depend on this sort order. It is implemented via a red-black tree.
-- **LinkedHashMap** is a subclass of HashMap with a linked-list implementation. It will iterate in the order in which the entries were put into the map.
-- **Hashtable** is an obsolete class from the days of Java 1.1 before the collections framework existed. It should not be used anymore, because its API is cluttered with obsolete methods that duplicate functionality, and its methods are synchronized (which can decrease performance and is generally useless). Furthermore, in a `Hashtable`, neither the key nor value can be `null`. This is not the case with `HashMap`, which may have a single `null` key and multiple `null` values.
-  - Use [ConcurrentHashMap](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ConcurrentHashMap.html) instead of `Hashtable` when synchronization is needed.
-
-The figure below summaries many of these differences.
-```
-╔══════════════╦═════════════════════╦═══════════════════╦═════════════════════╗
-║   Property   ║       HashMap       ║      TreeMap      ║     LinkedHashMap   ║
-╠══════════════╬═════════════════════╬═══════════════════╬═════════════════════╣
-║ Iteration    ║  no guarantee order ║ sorted according  ║                     ║
-║   Order      ║ will remain constant║ to the natural    ║    insertion-order  ║
-║              ║      over time      ║    ordering       ║                     ║
-╠══════════════╬═════════════════════╬═══════════════════╬═════════════════════╣
-║  Get/put     ║                     ║                   ║                     ║
-║   remove     ║         O(1)        ║      O(log(n))    ║         O(1)        ║
-║ containsKey  ║                     ║                   ║                     ║
-╠══════════════╬═════════════════════╬═══════════════════╬═════════════════════╣
-║              ║                     ║   NavigableMap    ║                     ║
-║  Interfaces  ║         Map         ║       Map         ║         Map         ║
-║              ║                     ║    SortedMap      ║                     ║
-╠══════════════╬═════════════════════╬═══════════════════╬═════════════════════╣
-║              ║                     ║                   ║                     ║
-║     Null     ║       allowed       ║    only values    ║       allowed       ║
-║ values/keys  ║                     ║                   ║                     ║
-╠══════════════╬═════════════════════╩═══════════════════╩═════════════════════╣
-║              ║   Fail-fast behavior of an iterator cannot be guaranteed      ║
-║   Fail-fast  ║ impossible to make any hard guarantees in the presence of     ║
-║   behavior   ║           unsynchronized concurrent modification              ║
-╠══════════════╬═════════════════════╦═══════════════════╦═════════════════════╣
-║              ║                     ║                   ║                     ║
-║Implementation║      buckets        ║   Red-Black Tree  ║    double-linked    ║
-║              ║                     ║                   ║       buckets       ║
-╠══════════════╬═════════════════════╩═══════════════════╩═════════════════════╣
-║      Is      ║                                                               ║
-║ synchronized ║              implementation is not synchronized               ║
-╚══════════════╩═══════════════════════════════════════════════════════════════╝
-```
-
 ### ArrayList vs. Vector
 1. **Synchronization:** `Vector` is **synchronized**, which means only one thread can access it at a time, while `ArrayList` is not synchronized, which means multiple threads could read it at the same time.
 2. **Performance:** `ArrayList` is faster, as `Vector` incurs slight overhead in acquiring the lock.
@@ -510,64 +317,6 @@ The figure below summaries many of these differences.
 
 Generally, you'll want to use an `ArrayList`; in the single-threaded case it's a better choice, and in the multi-threaded case, you get better control over locking. Want to allow concurrent reads? Fine. Want to perform one synchronization for a batch of ten writes? Also fine. It does require a little more care on your end, but it's likely what you want. Also note that if you have an `ArrayList`, you can use the [`Collections.synchronizedList`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#synchronizedList-java.util.List-) function to create a synchronized list, thus getting you the equivalent of a `Vector`.
 
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
-## Common Design Patterns
-### Singleton Class
-Controls object creation, limiting # of objects to only one. Since there is only one instance, instance fields will occur once per class, similar to static fields.  
-Singletons often control access to resources like database connections or sockets.  
-```java
-public class Singleton {
-    private static Singleton singleton = new Singleton();
-    private Singleton () {} // private constructor prevents any other class from instantiating
-    
-    public static Singleton getInstance() { return singleton; }
-    protected static void demoMethod() { System.out.println("demo"); }
-}
-```
-
-Example usage:
-```java
-Singleton tmp = Singleton.getInstance();
-tmp.demoMethod();
-```
-
-Some useful posts on the variations of the Singleton pattern in Java:
-- [Singletons in Java - Baeldung](https://www.baeldung.com/java-singleton)
-- [Double-Checked Locking with Singleton](https://www.baeldung.com/java-singleton-double-checked-locking)
-- [Java Singleton Design Pattern Best Practices with Examples](https://www.journaldev.com/1377/java-singleton-design-pattern-best-practices-examples)
-
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
-## `Number` Wrapper Classes
-```
-                   Number
-                     |
-  ___________________|_________________
- |       |       |       |      |      |
-Byte  Integer  Double  Short  Float  Long
-```
-
-Converting primitive data types into objects is called **boxing**.  
-Similarly, the reverse operation is called **unboxing**.
-
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
-## Cloning Arrays
-Two methods of copying an array are using `System.arraycopy()` and `clone()`.  
-An example of `System.arraycopy()`:
-```java
-int[] dest = new int[orig.length];
-System.arraycopy(orig, 0, dest, 0, orig.length);
-```
-
-An example of `clone()`:
-```java
-int[] dest = orig.clone();
-```
-
-Long story short, it seems the first method may be quicker on shorter arrays, but on larger datasets they have similar performance. Furthermore, `clone()` is much more compact and easy to read. Thus, tend to prefer `clone()`.
-
-For more information, see [this article](https://www.javaspecialists.eu/archive/Issue124.html).
-
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Other Useful Keywords
 ### `final` Keyword
 Can be applied to variables, methods, and classes.
@@ -626,5 +375,4 @@ If a variable is not declared `volatile`, we have no guarantee about when exactl
 
 `volatile` can only be used on instance variables.
 
-See [this fantastic post](http://tutorials.jenkov.com/java-concurrency/volatile.html) or the [accompanying video](https://www.youtube.com/watch?v=nhYIEqt-jvY&ab_channel=JakobJenkov) for more information.
 
